@@ -1,5 +1,23 @@
 # CS4760HW1
 
+# Command Line Options
+
+# -x:
+Required for each program in the repository; the x argument takes an integer, and determines the total number of processes to be run.
+
+Example use: ./simplechain -x 19
+
+# -k: -m:
+Required to run simplechainLoop; k's argument determines the number of loop iterations,
+and m's argument determines the sleep() duration in seconds. Both options require an integer parameter
+
+Example use: ./simplechainLoop -x 19 -k 5 -m 10
+
+# -h:
+Required to run simplechainNchars; n's argument determines the number of chars to be stored in mybuff by using a loop.
+
+Example use: ./simplechainNchars -x 19 -h 5
+
 # Excerpt from Homwork Assignment Document
 
 Unix System Calls and Library Functions

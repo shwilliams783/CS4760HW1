@@ -1,0 +1,164 @@
+***Question 1: Run program 3.1 and observe the results
+for different numbers of processes***
+
+./simplechain -x 2
+i:1 process ID:6609 parent ID:3370 child ID:6610
+i:2 process ID:6610 parent ID:6609 child ID:0
+
+
+./simplechain -x 5
+i:1 process ID:6525 parent ID:3370 child ID:6526
+i:2 process ID:6526 parent ID:1 child ID:6527
+i:3 process ID:6527 parent ID:1 child ID:6528
+-bash-4.2$ i:5 process ID:6529 parent ID:6528 child ID:0
+i:4 process ID:6528 parent ID:1 child ID:6529
+
+
+./simplechain -x 10
+i:1 process ID:6499 parent ID:3370 child ID:6500
+i:2 process ID:6500 parent ID:6499 child ID:6501
+i:3 process ID:6501 parent ID:6500 child ID:6502
+-bash-4.2$ i:4 process ID:6502 parent ID:1 child ID:6503
+i:5 process ID:6503 parent ID:6502 child ID:6504
+i:6 process ID:6504 parent ID:1 child ID:6505
+i:7 process ID:6505 parent ID:6504 child ID:6506
+i:8 process ID:6506 parent ID:1 child ID:6507
+i:9 process ID:6507 parent ID:6506 child ID:6508
+i:10 process ID:6508 parent ID:6507 child ID:0
+
+
+./simplechain -x 19
+i:1 process ID:6474 parent ID:3370 child ID:6475
+i:2 process ID:6475 parent ID:1 child ID:6476
+i:3 process ID:6476 parent ID:6475 child ID:6477
+-bash-4.2$ i:4 process ID:6477 parent ID:1 child ID:6478
+i:5 process ID:6478 parent ID:1 child ID:6479
+i:6 process ID:6479 parent ID:6478 child ID:6480
+i:7 process ID:6480 parent ID:1 child ID:6481
+i:8 process ID:6481 parent ID:1 child ID:6482
+i:9 process ID:6482 parent ID:6481 child ID:6483
+i:10 process ID:6483 parent ID:1 child ID:6484
+i:11 process ID:6484 parent ID:6483 child ID:6485
+i:12 process ID:6485 parent ID:1 child ID:6486
+i:13 process ID:6486 parent ID:1 child ID:6487
+i:14 process ID:6487 parent ID:1 child ID:6488
+i:15 process ID:6488 parent ID:1 child ID:6489
+i:16 process ID:6489 parent ID:1 child ID:6490
+i:17 process ID:6490 parent ID:1 child ID:6491
+i:18 process ID:6491 parent ID:1 child ID:6492
+i:19 process ID:6492 parent ID:1 child ID:0
+
+Occasionally the GETPPID returns 1 for child processes
+whose parents have already completed and passed their children
+up to their respective parents. By passing "grandchildren" to 
+"grandparent" processes, their GETPPID calls will return 1.
+
+Nineteen processes is the theoretical limit of how many child
+processes are safely allowed to be forked from the original
+parent process on our server.
+
+
+./simplechain -x 35
+i:1 process ID:6416 parent ID:3370 child ID:6417
+i:2 process ID:6417 parent ID:1 child ID:6418
+-bash-4.2$ i:3 process ID:6418 parent ID:1 child ID:6419
+i:4 process ID:6419 parent ID:6418 child ID:6420
+i:5 process ID:6420 parent ID:1 child ID:6421
+i:6 process ID:6421 parent ID:6420 child ID:6422
+i:7 process ID:6422 parent ID:6421 child ID:6423
+i:8 process ID:6423 parent ID:1 child ID:6424
+i:9 process ID:6424 parent ID:1 child ID:6425
+i:10 process ID:6425 parent ID:6424 child ID:6426
+i:11 process ID:6426 parent ID:1 child ID:6427
+i:12 process ID:6427 parent ID:6426 child ID:6428
+i:13 process ID:6428 parent ID:6427 child ID:6429
+i:14 process ID:6429 parent ID:1 child ID:6430
+i:15 process ID:6430 parent ID:6429 child ID:6431
+i:16 process ID:6431 parent ID:6430 child ID:6432
+i:17 process ID:6432 parent ID:1 child ID:6433
+i:18 process ID:6433 parent ID:6432 child ID:6434
+i:19 process ID:6434 parent ID:6433 child ID:6435
+i:20 process ID:6435 parent ID:1 child ID:6436
+i:21 process ID:6436 parent ID:1 child ID:6437
+i:22 process ID:6437 parent ID:6436 child ID:6438
+i:23 process ID:6438 parent ID:1 child ID:6439
+i:24 process ID:6439 parent ID:6438 child ID:6440
+i:25 process ID:6440 parent ID:6439 child ID:6441
+i:26 process ID:6441 parent ID:1 child ID:6442
+i:27 process ID:6442 parent ID:1 child ID:6443
+i:28 process ID:6443 parent ID:6442 child ID:6444
+i:29 process ID:6444 parent ID:1 child ID:6445
+i:30 process ID:6445 parent ID:6444 child ID:6446
+i:31 process ID:6446 parent ID:1 child ID:6447
+i:32 process ID:6447 parent ID:1 child ID:6448
+i:33 process ID:6448 parent ID:6447 child ID:6449
+i:34 process ID:6449 parent ID:1 child ID:6450
+i:35 process ID:6450 parent ID:6449 child ID:0
+
+In spite of the limited number of processes that
+our accounts are supposed to have (20 maximum),
+simplechain successfully runs a greater number
+than this limit, as multiple ancesteral processes
+complete their tasks before descendent the child
+processes are called at a rate that keeps the total
+running processes below the threshold.
+
+***Question 2: Fill in actual processes in Figure 3.2 for a run with command
+line argument value of 4***
+
+1 PID:14819
+2 PID:14820
+3 PID:14821
+4 PID:14822
+
+***Question 3: Experiment with different values for the command-line argument
+to find out the largest number of processes that the program can generate.
+Observe the fraction that are adopted by init (PPID = 1).***
+
+i:360 process ID:18511 parent ID:18510 child ID:18512
+i:361 process ID:18512 parent ID:18511 child ID:18513
+i:362 process ID:18513 parent ID:18512 child ID:18514
+i:363 process ID:18514 parent ID:18513 child ID:-1
+
+The highest amount of processes that can be run by simplechain.c is 363.
+The program consistently runs over 300 processes.
+In the case of the 363 processes, 131/363 (~1/3) were adopted by init.
+
+***Question 4: Place sleep(10); directly before the final fprintf statement
+in program 3.1. What is the maximum number of processes generated in this
+case?***
+
+i:28 process ID:20783 parent ID:20782 child ID:-1
+
+The modified program "simplechainSleep.c" did the above change to the original
+program, resulting in a consistent cap of 28 processes maximum.
+
+***Question 5: (loop controls)***
+ 
+Adding command line parameters to print the results k times delayed by
+m seconds each shows that even though fewer processes can be run as m
+increases, the number of processes adopted by init are reduced.
+ 
+As the loops iterate k times, the output values are consistent for
+each index, i. The sequence of the print statements are occasionally
+out of order, suggesting uneven delays in completing each process.
+
+
+***Question 6: (adding wait())***
+
+Adding wait(); before the final print statements reverses the order that each
+process resolves, stabilizes the order (no init adoptions), and locks the
+process maximum at 28.
+
+***Question 7: (splitting fprintf 4 ways)***
+
+Splitting the fprintf statement into 4 consecutive statements caused a
+significant increase in the number of adoptions by init, as well as mostly
+running the same. Once the process limit was approaching, there would be
+occasional overlapping of fprintf statements from "racing" processes.
+
+***Question 8*** 
+
+Adding a loop that takes user inputs (stdin) one character at a time to
+construct a string of length h results in single characters getting intercepted
+and printed one at a time by sequential child processes.

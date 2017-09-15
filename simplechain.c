@@ -8,14 +8,22 @@ int main (int argc, char *argv[]) {
 pid_t childpid = 0;
 int i, n;
 char errMessage[80];   
+char *xParam = NULL;
+int c;
 
-if (argc != 2){ /* check for valid number of command-line arguments */
-        strcat(errMessage, argv[0]);
-		strcat(errMessage, ": Error");
-        perror( errMessage );
-        return 1;
-}       
-n = atoi (argv[1]);
+while ((c = getopt (argc, argv, "x:")) != -1)
+	switch (c)
+    {
+		case 'x':
+			xParam = optarg;
+			break;
+		case '?':
+			return 1;
+		default:
+			abort ();
+    }
+
+n = atoi (xParam);
 for (i = 1; i < n; i++) 
         if (childpid = fork()) 
                 break;  
